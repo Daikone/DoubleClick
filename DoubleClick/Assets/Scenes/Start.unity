@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7e1c8f803f0484c8e2e424b4914114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lkey: 323
-  rkey: 324
+  lkey: 97
+  rkey: 100
 --- !u!224 &586205725
 RectTransform:
   m_ObjectHideFlags: 0
