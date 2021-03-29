@@ -19,7 +19,7 @@ public class DialogueNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(GameManager.canMove);
     }
 
     private void OnTriggerStay(Collider other)
@@ -28,13 +28,17 @@ public class DialogueNPC : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             
-                if (Input.GetKeyUp(GameManager.Rkey) && !dMan.dialogActive)
+
+            if (Input.GetKeyUp(GameManager.Rkey) )
                 {
-                    // dMan.ShowBox(dialogue);
+                GameManager.canMove = false;
+                
+                   
                     dMan.dialogLines = dialogueLines;
                     dMan.dialogNames = dialogueNames;
-                    dMan.currentLine = 0;
                     dMan.ShowDialogue();
+                
+                    
 
                 }
             
@@ -47,8 +51,20 @@ public class DialogueNPC : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
+            GameManager.canMove = false;
+            dMan.dialogLines = dialogueLines;
+            dMan.dialogNames = dialogueNames;
+            dMan.currentLine = 0;
+            dMan.ShowDialogue();
+            
         }
     }
-   
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            dMan.HideDialogue();
+            
+        }
+    }
 }

@@ -27,31 +27,38 @@ public class DialogueScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         if ( Input.GetKeyDown(GameManager.Rkey))
         {
 
             currentLine++;
         }
+
         if (currentLine >= dialogLines.Length)
         {
-            dbox.SetActive(false);
-            dialogActive = false;
-            currentLine = 0;
+            HideDialogue();
+
         }
         dNames.text = dialogNames[currentLine];
         dText.text = dialogLines[currentLine];
     }
-    public void ShowBox(string dialogue, string name)
+    public void ShowBox()
     {
         dialogActive = true;
         dbox.SetActive(true);
-        dText.text = dialogue;
-        dNames.text = name;
+       
     }
     public void ShowDialogue()
     {
         dialogActive = true;
         dbox.SetActive(true);
        
+    }
+    public void HideDialogue()
+    {
+        dbox.SetActive(false);
+        dialogActive = false;
+        currentLine = 0;
+        GameManager.canMove = true;
     }
 }

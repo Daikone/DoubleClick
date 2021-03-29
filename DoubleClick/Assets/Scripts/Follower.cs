@@ -11,10 +11,11 @@ public class Follower : MonoBehaviour
     public bool move = false;
         
     void Update(){
-        if(Input.GetKeyDown(GameManager.Rkey)){
+        if(Input.GetKeyDown(GameManager.Rkey ) )
+        {
 
-        if(!move) move = true;
-        else move = false;
+        if(!move && GameManager.canMove) move = true;
+        else  move = false;
 
     
     }
