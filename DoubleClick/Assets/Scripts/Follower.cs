@@ -8,7 +8,7 @@ public class Follower : MonoBehaviour
     public PathCreator pathCreator;
     public float speed = 5;
     float distanceTravelled;
-    bool move = false;
+    public bool move = false;
         
     void Update(){
         if(Input.GetKeyDown(GameManager.Rkey)){
@@ -25,4 +25,5 @@ public class Follower : MonoBehaviour
     }
     
 }
+    
 }

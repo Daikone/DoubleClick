@@ -21,52 +21,34 @@ public class DialogueNPC : MonoBehaviour
     {
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (Input.GetKeyUp(GameManager.Rkey))
-            {
-                // dMan.ShowBox(dialogue);
-                if (!dMan.dialogActive)
-                {
-                    dMan.dialogLines = dialogueLines;
-                    dMan.dialogNames = dialogueNames;
-                    dMan.currentLine = 0;
-                    dMan.ShowDialogue();
-                }
 
-            }
-           
-        }
-
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay(Collider other)
     {
-        Debug.Log("bruh");
-        if (collision.gameObject.tag == "Player")
+        
+        if (other.gameObject.tag == "Player")
         {
             
-            if (Input.GetKeyUp(GameManager.Rkey))
-            {
-                // dMan.ShowBox(dialogue);
-                if (!dMan.dialogActive)
+                if (Input.GetKeyUp(GameManager.Rkey) && !dMan.dialogActive)
                 {
+                    // dMan.ShowBox(dialogue);
                     dMan.dialogLines = dialogueLines;
                     dMan.dialogNames = dialogueNames;
                     dMan.currentLine = 0;
                     dMan.ShowDialogue();
-                }
 
-            }
-           
+                }
+            
+            
+
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+   
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-        
+
         }
     }
+   
 }

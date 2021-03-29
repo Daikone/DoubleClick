@@ -52,6 +52,6 @@ public class DialogueScript : MonoBehaviour
     {
         dialogActive = true;
         dbox.SetActive(true);
-
+       
     }
 }

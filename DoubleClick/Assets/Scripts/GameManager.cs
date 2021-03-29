@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static float karma = 50;
     public float money = 0;
+    
     // Start is called before the first frame update
     public static void setButtons(KeyCode l,KeyCode r)
     {
