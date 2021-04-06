@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/puzzleHard.unity
-=======
-- path: Assets/Scenes/SetControls.unity
->>>>>>> f1d98ce0374cd4dce85c88b5e41a8250e09db751
+- path: Assets/Scenes/Start.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
