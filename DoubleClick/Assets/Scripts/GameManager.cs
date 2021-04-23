@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static KeyCode Rkey = KeyCode.Mouse1;
     public static bool canMove = true;
     public static bool optionAvailable = false;
+    public static int saidIndex;
 
     //money and other stuf
     public float money = 0;
@@ -18,4 +19,5 @@ public class GameManager : MonoBehaviour
         Lkey = l;
         Rkey = r;
     }
+   
 }
