@@ -9,8 +9,8 @@ public class Movement : MonoBehaviour
     int index=1;
     //main object used to detect tiles
     public GameObject tilesParent;
-    
-
+    //used to see whether or not the tile puzzle is active
+    bool mover=true;
     void Start()
     {
         tiles = tilesParent.GetComponentsInChildren<Transform>();
@@ -60,26 +60,36 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //
-        if (Input.GetKeyDown(GameManager.Rkey) && tiles!=null)
+        if (mover)
         {
-            index++;
-            if (index >= tiles.Length)
-                index = 0;//replace this with moving to a different scene or activate the tile stuff later on
+            if (Input.GetKeyDown(GameManager.Rkey) && tiles != null)
+            {
+                index++;
+                if (index >= tiles.Length)
+                    index = 0;//replace this with moving to a different scene or activate the tile stuff later on
 
-
-            StartCoroutine(FollowArc(transform, transform.position, tiles[index].position,( transform.position.x- tiles[index].position.x)/2, 1));
-            
+                doJump(index);
+                
+            }
         }
-        
 
         if(tiles[index].GetComponent<AccessPuzzle>()!=null)
         {
             tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
+            mover = false;
         }
        
     }
+    public void setPuzzleState(bool v)
+    {
+        mover =v;
+    }
+    public void doJump(int inde)
+    {
+        StartCoroutine(FollowArc(transform, transform.position, tiles[inde].position, (transform.position.x - tiles[inde].position.x) / 2, 1));
 
- 
+    }
+
 }
