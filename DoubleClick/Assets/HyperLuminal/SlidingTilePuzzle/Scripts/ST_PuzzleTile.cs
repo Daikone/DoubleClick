@@ -9,9 +9,18 @@ public class ST_PuzzleTile : MonoBehaviour
 	// is this an active tile?  usually one per game is inactive.
 	public bool Active = true;
 
+	//is this tile selected?
+	public bool Selected = false;
+
+	//is this tile movable?
+	public bool Movable = false;
+
 	// is this tile in the correct location?
 	public bool CorrectLocation = false;
 
+	//this tile's default size
+	public float sizeX;
+	public float sizeY;
 	// store this tiles array location.
 	public Vector2 ArrayLocation = new Vector2();
 	public Vector2 GridLocation = new Vector2();
@@ -68,4 +77,13 @@ public class ST_PuzzleTile : MonoBehaviour
 		// get the puzzle display and return the new target location from this tile. 
 		LaunchPositionCoroutine(this.transform.parent.GetComponent<ST_PuzzleDisplay>().GetTargetLocation(this.GetComponent<ST_PuzzleTile>()));
 	}
+
+	private void Update() {
+		if(Selected){
+			gameObject.transform.localScale = new Vector3(sizeX/1.1f, 1, sizeY/1.1f);
+		} else{
+			gameObject.transform.localScale = new Vector3(sizeX, 1, sizeY);
+		}
+	}
+
 }

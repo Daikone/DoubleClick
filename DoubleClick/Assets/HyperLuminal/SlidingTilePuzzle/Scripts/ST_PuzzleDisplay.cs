@@ -30,6 +30,12 @@ public class ST_PuzzleDisplay : MonoBehaviour
 	private GameObject[,] TileDisplayArray;
 	private List<Vector3>  DisplayPositions = new List<Vector3>();
 
+	//list of movable tiles
+	public List<ST_PuzzleTile> MovableTiles = new List<ST_PuzzleTile>();
+
+	//selected tile
+	public ST_PuzzleTile selectedTile;
+
 	// position and scale values.
 	private Vector3 Scale;
 	private Vector3 Position;
@@ -37,9 +43,21 @@ public class ST_PuzzleDisplay : MonoBehaviour
 	// has the puzzle been completed?
 	public bool Complete = false;
 
+	// how long until selecting next tile
+	public float timer;
+
+	public float countDown;
+
+	public int i;
+
+
 	// Use this for initialization
 	void Start () 
 	{
+		i = 0;
+		timer = 1.2f;
+		countDown = timer;
+
 		// create the games puzzle tiles from the provided image.
 		CreatePuzzleTiles();
 
@@ -56,6 +74,32 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
 		// set the scale of the entire puzzle object as set in the inspector.
 		this.transform.localScale = PuzzleScale;
+
+		//track time to change selected tile
+		countDown -= Time.deltaTime;
+		
+		if(countDown < 0){
+			countDown = timer;
+			int c = MovableTiles.Count;
+
+			if(i >= c-1){
+				i = 0;
+			} else{
+				i++;
+			}
+			if(selectedTile != null){
+				selectedTile.Selected = false;
+			}
+
+			selectedTile = MovableTiles[i];
+			selectedTile.Selected = true;
+			
+		}
+
+		// check if the right key is pressed
+		if(Input.GetKeyDown(KeyCode.Space)){
+			selectedTile.ExecuteAdditionalMove();
+		}
 	}
 
 	public Vector3 GetTargetLocation(ST_PuzzleTile thisTile)
@@ -73,6 +117,30 @@ public class ST_PuzzleDisplay : MonoBehaviour
 			// move the empty tile into this tiles current position.
 			MoveTo.LaunchPositionCoroutine(thisTile.TargetPosition);
 			MoveTo.GridLocation = GridLocation;
+
+			//calculate movable tiles
+
+			//clear list
+			MovableTiles.Clear();
+			
+			//go through all tiles, set their default size, and if they can move add them to the list
+			for(int i = 0; i < Height; i++){
+				for(int j = 0; j < Width; j++){
+					ST_PuzzleTile currentTile = TileDisplayArray[i,j].GetComponent<ST_PuzzleTile>();
+					int x = (int) currentTile.GridLocation.x;
+					int y = (int) currentTile.GridLocation.y;
+
+					currentTile.sizeX = 1f/Width;
+					currentTile.sizeY = 1f/Height;
+
+					if(CheckIfWeCanMove(x, y, currentTile)!= currentTile){
+						MovableTiles.Add(currentTile);
+						currentTile.Movable = true;
+					} else{
+						currentTile.Movable = false;
+					}
+				}
+			}
 
 			// return the new target position.
 			return TargetPos;
