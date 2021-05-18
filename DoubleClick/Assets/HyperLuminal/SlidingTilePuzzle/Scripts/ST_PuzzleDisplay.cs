@@ -57,7 +57,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 		i = 0;
 		timer = 1.2f;
 		countDown = timer;
-
+        
 		// create the games puzzle tiles from the provided image.
 		CreatePuzzleTiles();
 
@@ -69,6 +69,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        
 		// move the puzzle to the position set in the inspector.
 		this.transform.localPosition = PuzzlePosition;
 
@@ -97,11 +98,18 @@ public class ST_PuzzleDisplay : MonoBehaviour
 		}
 
 		// check if the right key is pressed
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKeyDown(GameManager.Rkey)){
 			selectedTile.ExecuteAdditionalMove();
-		}
+            GameManager.canMove = Complete;
+        }
+        if (Complete)
+            Kill();
 	}
 
+    void Kill()
+    {
+        Destroy(this.gameObject);
+    }
 	public Vector3 GetTargetLocation(ST_PuzzleTile thisTile)
 	{
 		// check if we can move this tile and get the position we can move to.

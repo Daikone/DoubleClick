@@ -4,30 +4,35 @@ using UnityEngine;
 
 public class AccessPuzzle : MonoBehaviour
 {
-    // Start is called before the first frame update
     
+    /// Lists and arrays
+    //the array where the puzzle piece objects are put
     public GameObject[] options;
-    int index=0;
+    //array of difficulties for each puzzle
+    public int[] difficulties;
+    //list of the spriterenderers for the options
+    List<SpriteRenderer> renderers = new List<SpriteRenderer>();
+
+
+    /// Variables
+    public int index =0;
 
     [SerializeField]
     float timer=1.5f;
 
     float timerSave;
-    bool isChoice = false;
-    List<SpriteRenderer> renderers = new List<SpriteRenderer>();
+    public bool isChoice = false;
+    //the puzzle parent object
     GameObject ThePuzzle;
+    //used to delay the appearane of the puzzles
     int countclicks;
-    public int[] difficulties;
-    void Start()
+    
+    void Awake()
     {
         timerSave = timer;
         ThePuzzle = GameObject.FindGameObjectWithTag("MainPuzzle");
-
-        if (ThePuzzle != null)
-            ThePuzzle.SetActive(false);
-        else
-            Debug.LogError("Please add a puzzle in the scene with the tag 'MainPuzzle'");
-
+        
+        //sets thepuzzles to look transparent
         for (int i = 0; i < options.Length; i++)
         { renderers.Add(options[i].GetComponent<SpriteRenderer>());
             renderers[i].color = new Color(renderers[index].color.r, renderers[index].color.g, renderers[index].color.b, 0.5f);
@@ -40,10 +45,12 @@ public class AccessPuzzle : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {if(isChoice)
+    {
+        //only activates when the character is on a puzzle selection tile
+        if (isChoice)
         {
             if(timer==timerSave)
-                SetTransparency();
+                SetEffects();
 
             timer -= Time.deltaTime;
             if (timer <= 0)
@@ -58,31 +65,46 @@ public class AccessPuzzle : MonoBehaviour
             }
             if (Input.GetKeyDown(GameManager.Rkey))
             {
-                countclicks++;
-
-                if (countclicks > 1)
-                    StartPuzzle();
+                
+                PuzzleActivator.Setpuzzle(this);
+                //StartPuzzle();
+                Deactivate();
+                isChoice = false;
+                        
+                
             }
         }
-        
+      
+
+
+    }
+    //removes selection effects
+    void Deactivate()
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            renderers[i].color = new Color(renderers[index].color.r, renderers[index].color.g, renderers[index].color.b, 0.5f);
+            options[i].transform.localScale =  new Vector3(1, 1, 1);
+        }
     }
     public void SetChoice(bool ch)
     {
         isChoice = ch;
     }
-    //this function sets up the transparency of the puzzle pieces 
-    void SetTransparency()
+    //this function sets up the visual effects of the puzzle pieces 
+    void SetEffects()
     {
         for(int i = 0; i < renderers.Count; i++)
 		{
             renderers[i].color = index == i ? new Color(renderers[index].color.r, renderers[index].color.g, renderers[index].color.b, 1) 
                 : new Color(renderers[index].color.r, renderers[index].color.g, renderers[index].color.b, 0.5f);
+            options[i].transform.localScale = index == i ? new Vector3(1.2f, 1.2f, 1) : new Vector3(1, 1, 1);
         }
     }
     //activates puzzles
     void StartPuzzle()
     {
-        Debug.Log(difficulties[index]);
+        
         ThePuzzle.SetActive(true);
 
     }

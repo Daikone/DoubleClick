@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     //where the data from the tiles is kept
     Transform[] tiles;
-    int index=1;
+     public int index=1;
     //main object used to detect tiles
     public GameObject tilesParent;
     //used to see whether or not the tile puzzle is active
@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
     {
         tiles = tilesParent.GetComponentsInChildren<Transform>();
     }
-    //Arch movement
+    //Arch movement enumerator. DO NOT TOUCH
     IEnumerator FollowArc(
         Transform mover,
         Vector2 start,
@@ -60,9 +60,9 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //
-        if (mover)
+        
+        //jumping to the next tile
+        if (GameManager.canMove)
         {
             if (Input.GetKeyDown(GameManager.Rkey) && tiles != null)
             {
@@ -73,10 +73,14 @@ public class Movement : MonoBehaviour
                 doJump(index);
                 
             }
+            mover = true;
         }
-
-        if(tiles[index].GetComponent<AccessPuzzle>()!=null)
+        
+        //Activation of the tiles
+        if (tiles[index].GetComponent<AccessPuzzle>()!=null )
         {
+            //GameManager.canMove = false;
+           
             tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
             mover = false;
         }
@@ -86,6 +90,8 @@ public class Movement : MonoBehaviour
     {
         mover =v;
     }
+
+    //function used to jump to a new tile
     public void doJump(int inde)
     {
         StartCoroutine(FollowArc(transform, transform.position, tiles[inde].position, (transform.position.x - tiles[inde].position.x) / 2, 1));

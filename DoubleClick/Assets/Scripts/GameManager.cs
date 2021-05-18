@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     {
         Lkey = l;
         Rkey = r;
+        
     }
    
 }
