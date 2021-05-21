@@ -6,7 +6,7 @@ public class PuzzleActivator : MonoBehaviour
 {
  
     
-    bool hasActivated=true;
+    static bool hasActivated=false;
     bool puzSolved=true;
 
     static GameObject puzzleBKG;
@@ -35,22 +35,14 @@ public class PuzzleActivator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (puz != null)
+        if (puz != null && hasActivated)
         {
-            if (Input.GetKeyDown(GameManager.Rkey) && hasActivated)
-            {
-                delay++;
+               
                 // player.GetComponent<Movement>().doJump(player.GetComponent<Movement>().index + 1);
-                if (delay == 2 )
-                {
-
-                    StartPuzzle();
-                }
-                else
-                {
-                   puzzleBKG.SetActive(false);
-                }
-            }
+                
+                   // StartPuzzle();
+                
+           
             
         }
        
@@ -61,8 +53,15 @@ public class PuzzleActivator : MonoBehaviour
         puz = a;
 
     }
-    void StartPuzzle()
+    public static void SetInactive()
     {
+        GameManager.canMove = true;
+        hasActivated = false;
+        puzzleBKG.SetActive(false);
+    }
+     public void StartPuzzle()
+    {
+        
         puzzleBKG.SetActive(true);
 
         switch (puz.difficulties[puz.index])
@@ -79,9 +78,10 @@ public class PuzzleActivator : MonoBehaviour
                 break;
         }
         puzzle.transform.position = new Vector3(puzzle.transform.position.x, puzzle.transform.position.y+2, puzzle.transform.position.z);
-        puz.SetChoice(false);
-
         
+        puz.SetChoice(false);
+        hasActivated = true;
+
 
     }
     

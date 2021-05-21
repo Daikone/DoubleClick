@@ -16,7 +16,7 @@ public class AccessPuzzle : MonoBehaviour
 
     /// Variables
     public int index =0;
-
+    int count = 0;
     [SerializeField]
     float timer=1.5f;
 
@@ -49,7 +49,8 @@ public class AccessPuzzle : MonoBehaviour
         //only activates when the character is on a puzzle selection tile
         if (isChoice)
         {
-            if(timer==timerSave)
+            
+            if (timer==timerSave)
                 SetEffects();
 
             timer -= Time.deltaTime;
@@ -64,18 +65,19 @@ public class AccessPuzzle : MonoBehaviour
                 
             }
             if (Input.GetKeyDown(GameManager.Rkey))
+                count++;
+            if (count == 2)
             {
                 
                 PuzzleActivator.Setpuzzle(this);
-                //StartPuzzle();
+                StartPuzzle();
                 Deactivate();
                 isChoice = false;
-                        
-                
+                count = 0;
             }
         }
-      
 
+        Debug.Log(isChoice);
 
     }
     //removes selection effects
@@ -86,6 +88,7 @@ public class AccessPuzzle : MonoBehaviour
             renderers[i].color = new Color(renderers[index].color.r, renderers[index].color.g, renderers[index].color.b, 0.5f);
             options[i].transform.localScale =  new Vector3(1, 1, 1);
         }
+        count = 0;
     }
     public void SetChoice(bool ch)
     {
@@ -104,8 +107,9 @@ public class AccessPuzzle : MonoBehaviour
     //activates puzzles
     void StartPuzzle()
     {
-        
+        GameManager.canMove = false;
         ThePuzzle.SetActive(true);
+        ThePuzzle.GetComponent<PuzzleActivator>().StartPuzzle();
 
     }
 }

@@ -73,18 +73,19 @@ public class Movement : MonoBehaviour
                 doJump(index);
                 
             }
-            mover = true;
+           
         }
         
         //Activation of the tiles
         if (tiles[index].GetComponent<AccessPuzzle>()!=null )
         {
-            //GameManager.canMove = false;
-           
+            if(mover)
             tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
             mover = false;
         }
-       
+        else
+            mover = true;
+
     }
     public void setPuzzleState(bool v)
     {

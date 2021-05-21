@@ -108,6 +108,8 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
     void Kill()
     {
+        
+        PuzzleActivator.SetInactive();
         Destroy(this.gameObject);
     }
 	public Vector3 GetTargetLocation(ST_PuzzleTile thisTile)
