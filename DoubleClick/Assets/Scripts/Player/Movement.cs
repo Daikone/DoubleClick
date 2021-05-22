@@ -11,19 +11,19 @@ public class Movement : MonoBehaviour
     public GameObject tilesParent;
     //used to see whether or not the tile puzzle is active
     bool mover=true;
+    //animator
+    Animator anime;
     void Start()
     {
         tiles = tilesParent.GetComponentsInChildren<Transform>();
+        anime = GetComponent<Animator>();
     }
     //Arch movement enumerator. DO NOT TOUCH
-    IEnumerator FollowArc(
-        Transform mover,
-        Vector2 start,
-        Vector2 end,
-        float radius, // Set this to negative if you want to flip the arc.
+    IEnumerator FollowArc(Transform mover,Vector2 start,
+        Vector2 end,float radius, // Set this to negative if you want to flip the arc.
         float duration)
     {
-
+        anime.SetBool("isJumping", true);
         Vector2 difference = end - start;
         float span = difference.magnitude;
 
@@ -73,18 +73,25 @@ public class Movement : MonoBehaviour
                 doJump(index);
                 
             }
-           
+            
         }
-        
+        //sets the animation from jumping to idle
+        if(transform.position==tiles[index].position)
+            anime.SetBool("isJumping", false);
+      
         //Activation of the tiles
         if (tiles[index].GetComponent<AccessPuzzle>()!=null )
         {
-            if(mover)
-            tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
+            if (mover)
+            { tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
+                GameManager.canMove = false;
+            }
             mover = false;
         }
         else
             mover = true;
+
+        
 
     }
     public void setPuzzleState(bool v)

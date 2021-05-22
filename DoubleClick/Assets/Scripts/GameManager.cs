@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static bool canMove = true;
     public static bool optionAvailable = false;
     public static int saidIndex;
-
+    public static bool wasSolved=false;
     //money and other stuf
     public float money = 0;
     

@@ -68,7 +68,7 @@ public class AccessPuzzle : MonoBehaviour
                 count++;
             if (count == 2)
             {
-                
+                Debug.Log(count);
                 PuzzleActivator.Setpuzzle(this);
                 StartPuzzle();
                 Deactivate();
@@ -77,7 +77,6 @@ public class AccessPuzzle : MonoBehaviour
             }
         }
 
-        Debug.Log(isChoice);
 
     }
     //removes selection effects
@@ -107,9 +106,8 @@ public class AccessPuzzle : MonoBehaviour
     //activates puzzles
     void StartPuzzle()
     {
-        GameManager.canMove = false;
         ThePuzzle.SetActive(true);
         ThePuzzle.GetComponent<PuzzleActivator>().StartPuzzle();
-
     }
+   
 }

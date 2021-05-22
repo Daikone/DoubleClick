@@ -32,21 +32,7 @@ public class PuzzleActivator : MonoBehaviour
         puzzleBKG.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (puz != null && hasActivated)
-        {
-               
-                // player.GetComponent<Movement>().doJump(player.GetComponent<Movement>().index + 1);
-                
-                   // StartPuzzle();
-                
-           
-            
-        }
-       
-    }
+    
     //used by other functions to save the puzzle selector the player is on
     public static void Setpuzzle(AccessPuzzle a)
     {
