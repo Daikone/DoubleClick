@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     bool mover=true;
     //animator
     Animator anime;
+    //click counter for triggering the puzzle
+    int count=0;
     void Start()
     {
         tiles = tilesParent.GetComponentsInChildren<Transform>();
@@ -84,9 +86,17 @@ public class Movement : MonoBehaviour
         {
             if (mover)
             { tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
-                GameManager.canMove = false;
+              GameManager.canMove = false;
             }
             mover = false;
+            if (Input.GetKeyDown(GameManager.Rkey))
+                count++;
+            if (count == 2)
+            {
+                tiles[index].GetComponent<AccessPuzzle>().SetChoice(true);
+               tiles[index].GetComponent<AccessPuzzle>().StartPuzzle();
+                count = 0;
+            }
         }
         else
             mover = true;

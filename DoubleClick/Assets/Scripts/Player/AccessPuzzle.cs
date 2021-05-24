@@ -64,17 +64,7 @@ public class AccessPuzzle : MonoBehaviour
                
                 
             }
-            if (Input.GetKeyDown(GameManager.Rkey))
-                count++;
-            if (count == 2)
-            {
-                Debug.Log(count);
-                PuzzleActivator.Setpuzzle(this);
-                StartPuzzle();
-                Deactivate();
-                isChoice = false;
-                count = 0;
-            }
+            
         }
 
 
@@ -104,10 +94,17 @@ public class AccessPuzzle : MonoBehaviour
         }
     }
     //activates puzzles
-    void StartPuzzle()
+    public void StartPuzzle()
     {
-        ThePuzzle.SetActive(true);
-        ThePuzzle.GetComponent<PuzzleActivator>().StartPuzzle();
+        if (isChoice)
+        {
+            PuzzleActivator.Setpuzzle(this);
+            ThePuzzle.SetActive(true);
+            ThePuzzle.GetComponent<PuzzleActivator>().StartPuzzle();
+            Deactivate();
+            isChoice = false;
+            count = 0;
+        }
     }
    
 }
