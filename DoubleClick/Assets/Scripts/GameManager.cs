@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static bool optionAvailable = false;
     public static int saidIndex;
     public static bool wasSolved=false;
+    public static bool test;
     //money and other stuf
     public float money = 0;
     

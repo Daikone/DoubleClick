@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     Animator anime;
     //click counter for triggering the puzzle
     int count=0;
+    
     void Start()
     {
         tiles = tilesParent.GetComponentsInChildren<Transform>();
@@ -73,7 +74,10 @@ public class Movement : MonoBehaviour
                     index = 0;//replace this with moving to a different scene or activate the tile stuff later on
 
                 doJump(index);
-                
+
+
+
+               
             }
             
         }
@@ -100,8 +104,28 @@ public class Movement : MonoBehaviour
         }
         else
             mover = true;
+        //activates the end sequence and save function
+        if (tiles[index].GetComponent<WonTileScript>() != null)
+        {
+            if (mover)
+            {
+                GameManager.canMove = false;
+            }
+            mover = false;
+            if (Input.GetKeyDown(GameManager.Rkey))
+                count++;
+            if(count==1)
+                tiles[index].GetComponent<WonTileScript>().ShowMessage();
+            if (count == 2)
+            {
+                tiles[index].GetComponent<WonTileScript>().ClickSet(false);
+                tiles[index].GetComponent<WonTileScript>().SaveMethod();
+                Debug.Log("Send to menu");
+                
+            }
+            
+        }
 
-        
 
     }
     public void setPuzzleState(bool v)
