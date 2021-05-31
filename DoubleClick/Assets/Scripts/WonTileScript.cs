@@ -10,6 +10,9 @@ public class WonTileScript : MonoBehaviour
     public Image message;
 
     public DataManager datamanager;
+
+    
+    public int SaveIndex;
     // Start is called before the first frame update
     void Start()
     {
