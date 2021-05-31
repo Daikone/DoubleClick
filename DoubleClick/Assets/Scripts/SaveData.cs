@@ -8,7 +8,14 @@ using UnityEngine;
 public class SaveData 
 {
     //the values here MUST match the vlues in the JSOn file in both number and names
-    public bool isSaved;
     
+
+    public bool controlsSet;
+
+    public bool Venice;
+
+    public bool Berlin;
+
+
 
 }

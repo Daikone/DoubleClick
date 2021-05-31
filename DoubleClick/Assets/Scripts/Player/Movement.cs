@@ -118,7 +118,7 @@ public class Movement : MonoBehaviour
                 tiles[index].GetComponent<WonTileScript>().ShowMessage();
             if (count == 2)
             {
-                tiles[index].GetComponent<WonTileScript>().ClickSet(false);
+                tiles[index].GetComponent<WonTileScript>().ClickSet(1);
                 tiles[index].GetComponent<WonTileScript>().SaveMethod();
                 Debug.Log("Send to menu");
                 

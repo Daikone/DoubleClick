@@ -22,9 +22,27 @@ public class WonTileScript : MonoBehaviour
         message.gameObject.SetActive(true);
     }
     //this is a placeholder function. The function will be updated after a group meeting
-    public void ClickSet(bool boo)
+    public void ClickSet(int index)
     {
-        datamanager.data.isSaved = boo;
+
+        switch (index)
+        {
+            case 0:
+                datamanager.data.controlsSet = true;
+                break;
+            case 1:
+                datamanager.data.Venice = true;
+                break;
+            case 2:
+                datamanager.data.Berlin = true;
+                break;
+            case 3:
+                datamanager.data.Venice = false;
+                datamanager.data.Berlin = false;
+                break;
+            default:
+                break;
+        }
   
     }
     public void SaveMethod()
