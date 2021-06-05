@@ -109,6 +109,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
     void Kill()
     {
         GameManager.wasSolved = true;
+        GameManager.canMove = true;
         PuzzleActivator.SetInactive();
         Destroy(this.gameObject);
     }

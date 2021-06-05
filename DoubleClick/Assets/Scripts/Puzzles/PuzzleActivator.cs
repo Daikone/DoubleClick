@@ -50,7 +50,7 @@ public class PuzzleActivator : MonoBehaviour
         
         puzzleBKG.SetActive(true);
 
-        switch (puz.difficulties[puz.index])
+        switch (puz.difficulty)
         {
             default:
             case 0:
@@ -65,7 +65,7 @@ public class PuzzleActivator : MonoBehaviour
         }
         puzzle.transform.position = new Vector3(puzzle.transform.position.x, puzzle.transform.position.y+2, puzzle.transform.position.z);
         
-        puz.SetChoice(false);
+       
         hasActivated = true;
 
 
