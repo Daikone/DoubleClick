@@ -20,19 +20,27 @@ public class SelectControls : MonoBehaviour
     void OnGUI()
     {
         Event e = Event.current;
+        Debug.Log(e.keyCode);
         if (e.isKey && e.keyCode != KeyCode.None)
         {
-            keys++;
+            
+            
             if (keys == 1)
             {
+                
                 GameManager.Lkey = e.keyCode;
                 texte.text = "Now press your right input.";
             }
-                if (keys == 2)
-                {
-                GameManager.Rkey = e.keyCode;
+            if (keys == 2)
+            {
+            
+            GameManager.Rkey = e.keyCode;
 
-                SceneManager.LoadScene(sceneName); }
+            }
+            if(keys==3)
+            SceneManager.LoadScene(sceneName);
+
+            keys++;
         }
         
     }
