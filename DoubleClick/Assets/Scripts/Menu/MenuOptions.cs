@@ -55,14 +55,13 @@ public class MenuOptions : MonoBehaviour
         timer -= Time.deltaTime;
         if(timer<=0)
         {
-           
-            
+            index++;
             
             if (index > menubuttons.Count-1)
                 index = 0;
-            index++;
+            
             SetVisual();
-            Debug.Log(index);
+            
             timer = tSave;
             
         }

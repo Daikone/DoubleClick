@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -86,13 +87,19 @@ public class Movement : MonoBehaviour
         {
             if (pathIndex == 1)
             {
-                p2Renderer.color = new Color(0, 0, 0, 1);
-                p1Renderer.color = new Color(1, 1, 1, 1);
+                p2Renderer.color = new Color(p2Renderer.color.r, p2Renderer.color.g, p2Renderer.color.b, 0.5f);
+                p2Renderer.transform.localScale = new Vector3(1, 1, 1);
+                
+                p1Renderer.color = new Color(p1Renderer.color.r, p1Renderer.color.g, p1Renderer.color.b, 1f);
+                p1Renderer.transform.localScale = new Vector3(1.4f, 1.4f, 1);
             }
             if(pathIndex==2)
             {
-                p1Renderer.color = new Color(0, 0, 0, 1);
-                p2Renderer.color = new Color(1, 1, 1, 1);
+                p1Renderer.color = new Color(p1Renderer.color.r, p1Renderer.color.g, p1Renderer.color.b, 0.5f);
+                p1Renderer.transform.localScale = new Vector3(1, 1, 1);
+
+                p2Renderer.color = new Color(p2Renderer.color.r, p2Renderer.color.g, p2Renderer.color.b, 1f);
+                p2Renderer.transform.localScale = new Vector3(1.4f, 1.4f, 1);
             }
             countSelect -= Time.deltaTime;
             if (countSelect <= 0)
@@ -162,7 +169,7 @@ public class Movement : MonoBehaviour
             {
                 tiles[index].GetComponent<WonTileScript>().ClickSet(tiles[index].GetComponent<WonTileScript>().SaveIndex);
                 tiles[index].GetComponent<WonTileScript>().SaveMethod();
-                Debug.Log("Send to menu");
+                SceneManager.LoadScene("AdventureModeMenu");
                 
             }
             

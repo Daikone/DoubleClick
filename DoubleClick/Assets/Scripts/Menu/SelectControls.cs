@@ -10,6 +10,7 @@ public class SelectControls : MonoBehaviour
     public string sceneName;
     int keys = 0;
     Text texte;
+    public DataManager data;
     void Start()
     {
         texte = GetComponent<Text>();
@@ -37,8 +38,12 @@ public class SelectControls : MonoBehaviour
             GameManager.Rkey = e.keyCode;
 
             }
-            if(keys==3)
-            SceneManager.LoadScene(sceneName);
+            if (keys == 3)
+            {
+
+                data.data.controlsSet = true;
+                data.Save();
+                SceneManager.LoadScene(sceneName); }
 
             keys++;
         }
