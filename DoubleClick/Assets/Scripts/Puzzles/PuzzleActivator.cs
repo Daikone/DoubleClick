@@ -21,6 +21,10 @@ public class PuzzleActivator : MonoBehaviour
     [SerializeField]
     GameObject Hard;
 
+    public Texture texture1;
+    public Texture texture2;
+    public Texture texture3;
+
 
 
     int delay = 0;
@@ -50,19 +54,24 @@ public class PuzzleActivator : MonoBehaviour
         
         puzzleBKG.SetActive(true);
 
+        
         switch (puz.difficulty)
         {
             default:
             case 0:
                 puzzle = Instantiate(Easy, puzzleBKG.transform);
+                puzzle.GetComponent<ST_PuzzleDisplay>().PuzzleImage = texture1;
                 break;
             case 1:
                 puzzle = Instantiate(Medium, puzzleBKG.transform);
+                puzzle.GetComponent<ST_PuzzleDisplay>().PuzzleImage = texture2;
                 break;
             case 2:
                 puzzle = Instantiate(Hard, puzzleBKG.transform);
+                puzzle.GetComponent<ST_PuzzleDisplay>().PuzzleImage = texture3;
                 break;
         }
+        
         puzzle.transform.position = new Vector3(puzzle.transform.position.x, puzzle.transform.position.y+2, puzzle.transform.position.z);
         
        
