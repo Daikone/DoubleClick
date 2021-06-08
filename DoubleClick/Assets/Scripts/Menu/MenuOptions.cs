@@ -14,66 +14,77 @@ public class MenuOptions : MonoBehaviour
     int index=0;
     public float timer;
     float tSave;
-    public string scene1;
-    public string scene2;
-    public string scene3;
+
+
+    public GameObject buttons;
+    List<MenuButton> menubuttons;
 
     
-    Image[] visual;
+    List<Image> visual;
+
+    private void Awake()
+    {
+        menubuttons = new List<MenuButton>();
+        visual = new List<Image>();
+    }
     void Start()
     {
         tSave = timer;
 
-        visual = new Image[] {
+        foreach (MenuButton e in buttons.GetComponentsInChildren<MenuButton>())
+            menubuttons.Add(e);
 
-        GameObject.Find("IsVisible1").GetComponent<Image>(),
-        GameObject.Find("IsVisible2").GetComponent<Image>(),
-        GameObject.Find("IsVisible3").GetComponent<Image>(),
-        GameObject.Find("IsVisible4").GetComponent<Image>(),
-        };
 
-      //string test=$"IsVisible{index}";  
+        for (int i=0; i<menubuttons.Count;i++ )
+        {
+            Image e = menubuttons[i].GetComponentInChildren<Image>();
+            visual.Add(e);
+        }
+
+
+
+
+        SetVisual();
+        //string test=$"IsVisible{index}";  
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         timer -= Time.deltaTime;
         if(timer<=0)
         {
+           
             
-            timer = tSave;
-            index++;
-            if (index > 3)
+            
+            if (index > menubuttons.Count-1)
                 index = 0;
+            index++;
+            SetVisual();
+            Debug.Log(index);
+            timer = tSave;
             
         }
-        for (int i = 0; i < visual.Length; i++)
-        {
-            visual[i].enabled = index==i? true :false;
         
-        }
-        if (Input.GetKeyDown(GameManager.Rkey))
+        if (Input.GetKeyDown(GameManager.Rkey) && menubuttons[index].Enabled)
         {
-            switch (index)
-            {
-                case 0:
-                    SceneManager.LoadScene(scene1);
-                    break;
-                case 1:
-                    SceneManager.LoadScene(scene2);
-                    break;
-                case 2:
-                    SceneManager.LoadScene(scene3);
-                    break;
-                case 3:
-                    Application.Quit();
-                    break;
-                default:
+            if (menubuttons[index].sceneName == "Quit")
+                Application.Quit();
+            else
+                SceneManager.LoadScene(menubuttons[index].sceneName);
+        }
+        else if (Input.GetKeyDown(GameManager.Rkey))
+            index++;
+        
+           
+    }
+    void SetVisual()
+    {
+        for (int i = 0; i < visual.Count; i++)
+        {
+            visual[i].enabled = index == i ? true : false;
 
-                    break;
-            }
-            Debug.Log(index);
         }
     }
 }
