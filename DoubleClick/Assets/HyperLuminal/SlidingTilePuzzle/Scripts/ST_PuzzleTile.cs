@@ -25,6 +25,9 @@ public class ST_PuzzleTile : MonoBehaviour
 	public Vector2 ArrayLocation = new Vector2();
 	public Vector2 GridLocation = new Vector2();
 
+	public int sortingValue = 100;
+
+
 	void Awake()
 	{
 		// assign the new target position.
@@ -34,7 +37,7 @@ public class ST_PuzzleTile : MonoBehaviour
 		StartCoroutine(UpdatePosition());
 	}
 
-	public  void LaunchPositionCoroutine(Vector3 newPosition)
+	public void LaunchPositionCoroutine(Vector3 newPosition)
 	{
 		// assign the new target position.
 		TargetPosition = newPosition;

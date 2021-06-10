@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ST_PuzzleDisplay : MonoBehaviour 
 {
@@ -35,6 +36,9 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
 	//selected tile
 	public ST_PuzzleTile selectedTile;
+
+	//inactive tile
+	public ST_PuzzleTile inactiveTile;
 
 	// position and scale values.
 	private Vector3 Scale;
@@ -134,22 +138,49 @@ public class ST_PuzzleDisplay : MonoBehaviour
 			//clear list
 			MovableTiles.Clear();
 			
-			//go through all tiles, set their default size, and if they can move add them to the list
+			//iterate through all tiles and manage them
 			for(int i = 0; i < Height; i++){
 				for(int j = 0; j < Width; j++){
 					ST_PuzzleTile currentTile = TileDisplayArray[i,j].GetComponent<ST_PuzzleTile>();
 					int x = (int) currentTile.GridLocation.x;
 					int y = (int) currentTile.GridLocation.y;
 
+					//set tile size
 					currentTile.sizeX = 1f/Width;
 					currentTile.sizeY = 1f/Height;
 
+					//update inactive tile
+					if(!currentTile.Active){
+						inactiveTile = currentTile;
+					}
+
+					//add movable tiles to the list and assign sorting value
 					if(CheckIfWeCanMove(x, y, currentTile)!= currentTile){
 						MovableTiles.Add(currentTile);
 						currentTile.Movable = true;
+
+						int inactiveX = (int)inactiveTile.GridLocation.x;
+						int inactiveY = (int)inactiveTile.GridLocation.y;
+
+						if(x < inactiveX){
+							currentTile.sortingValue = 4;
+						}
+						if(x > inactiveX){
+							currentTile.sortingValue = 2;
+						}
+						if(y < inactiveY){
+							currentTile.sortingValue = 3;
+						}
+						if(y > inactiveY){
+							currentTile.sortingValue = 1;
+						}
+
 					} else{
 						currentTile.Movable = false;
 					}
+
+					//sort movableTiles list
+					MovableTiles = MovableTiles.OrderBy(w => w.sortingValue).ToList();
 				}
 			}
 
