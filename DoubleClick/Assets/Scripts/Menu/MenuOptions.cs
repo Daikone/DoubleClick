@@ -19,6 +19,7 @@ public class MenuOptions : MonoBehaviour
     List<MenuButton> menubuttons;
     List<MenuButton> endmenubuttons;
     List<int> deleters;
+    List<Text> text;
     
     List<Image> visual;
 
@@ -27,6 +28,7 @@ public class MenuOptions : MonoBehaviour
         menubuttons = new List<MenuButton>();
         endmenubuttons = new List<MenuButton>();
         visual = new List<Image>();
+        text = new List<Text>();
         deleters = new List<int>();
         tSave = timer;
 
@@ -38,7 +40,9 @@ public class MenuOptions : MonoBehaviour
         for (int i = 0; i < menubuttons.Count; i++)
         {
             Image e = menubuttons[i].GetComponentInChildren<Image>();
+            Text t = menubuttons[i].GetComponentInChildren<Text>();
             visual.Add(e);
+            text.Add(t);
         }
         for (int i = 0; i < menubuttons.Count; i++)
         {
@@ -86,7 +90,9 @@ public class MenuOptions : MonoBehaviour
         for (int i = 0; i < visual.Count; i++)
         {
             if (menubuttons[i].Enabled != false)
-                visual[i].sprite = index == i ? selected : unselected;
+            { visual[i].sprite = index == i ? selected : unselected;
+              text[i].color= index == i ? new Color(0.1f,0.1f,0) : new Color(.7f, .7f, 0.68f);
+            }
             
             
         }
