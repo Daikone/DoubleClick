@@ -8,7 +8,7 @@ public class blockerScript : MonoBehaviour
     public DataManager data;
     public MenuButton Berlin;
     public MenuButton Venice;
-    void Start()
+    void Awake()
     {
         data.Load();
         Berlin.Enabled = data.data.Berlin;

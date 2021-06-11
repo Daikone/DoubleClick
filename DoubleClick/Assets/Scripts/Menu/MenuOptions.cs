@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class MenuOptions : MonoBehaviour
 {
     // Start is called before the first frame update
-    Image op1;
-    Image op2;
-    Image op3;
-    Image op4;
+    public Sprite selected;
+    public Sprite unselected;
+    
     int index=0;
     public float timer;
     float tSave;
@@ -18,40 +17,44 @@ public class MenuOptions : MonoBehaviour
 
     public GameObject buttons;
     List<MenuButton> menubuttons;
-
+    List<MenuButton> endmenubuttons;
+    List<int> deleters;
     
     List<Image> visual;
 
-    private void Awake()
+    private void Start()
     {
         menubuttons = new List<MenuButton>();
+        endmenubuttons = new List<MenuButton>();
         visual = new List<Image>();
-    }
-    void Start()
-    {
+        deleters = new List<int>();
         tSave = timer;
 
         foreach (MenuButton e in buttons.GetComponentsInChildren<MenuButton>())
+        {   if(e.Enabled==true)
             menubuttons.Add(e);
+        }
 
-
-        for (int i=0; i<menubuttons.Count;i++ )
+        for (int i = 0; i < menubuttons.Count; i++)
         {
             Image e = menubuttons[i].GetComponentInChildren<Image>();
             visual.Add(e);
         }
+        for (int i = 0; i < menubuttons.Count; i++)
+        {
+            if (menubuttons[i].Enabled == false)
+                menubuttons.RemoveAt(i);
 
+        }
 
-
-
-        SetVisual();
-        //string test=$"IsVisible{index}";  
+       
     }
+    
 
     // Update is called once per frame
     void Update()
     {
-        
+        SetVisual();
         timer -= Time.deltaTime;
         if(timer<=0)
         {
@@ -59,9 +62,9 @@ public class MenuOptions : MonoBehaviour
             
             if (index > menubuttons.Count-1)
                 index = 0;
-            
-            SetVisual();
-            
+
+
+            Debug.Log(menubuttons.Count);
             timer = tSave;
             
         }
@@ -82,8 +85,10 @@ public class MenuOptions : MonoBehaviour
     {
         for (int i = 0; i < visual.Count; i++)
         {
-            visual[i].enabled = index == i ? true : false;
-
+            if (menubuttons[i].Enabled != false)
+                visual[i].sprite = index == i ? selected : unselected;
+            
+            
         }
     }
 }

@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     public Transform Path2;
     
     public int index=1;
-    int pathIndex=1;
+    public int pathIndex=1;
     bool pathselected = false;
     //main object used to detect tiles
     public GameObject tilesParent;
