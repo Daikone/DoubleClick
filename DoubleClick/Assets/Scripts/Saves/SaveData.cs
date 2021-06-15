@@ -15,6 +15,8 @@ public class SaveData
     public bool Venice;
 
     public bool Berlin;
+    public KeyCode Rinput;
+    public KeyCode Linput;
 
 
 

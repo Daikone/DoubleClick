@@ -28,19 +28,20 @@ public class SelectControls : MonoBehaviour
             
             if (keys == 1)
             {
+                data.data.Linput = e.keyCode;
                 
-                GameManager.Lkey = e.keyCode;
                 texte.text = "Now press your right input.";
             }
             if (keys == 2)
             {
+                data.data.Rinput = e.keyCode;
             
-            GameManager.Rkey = e.keyCode;
 
             }
             if (keys == 3)
             {
-
+                GameManager.Lkey = data.data.Linput;
+                GameManager.Rkey = data.data.Rinput;
                 data.data.controlsSet = true;
                 data.Save();
                 SceneManager.LoadScene(sceneName); }
