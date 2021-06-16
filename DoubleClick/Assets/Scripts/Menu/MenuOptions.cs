@@ -79,9 +79,11 @@ public class MenuOptions : MonoBehaviour
                 Application.Quit();
             else
                 SceneManager.LoadScene(menubuttons[index].sceneName);
+                FindObjectOfType<AudioManager>().Play("ButtonClick");
         }
         else if (Input.GetKeyDown(GameManager.Rkey))
             index++;
+            
         
            
     }
